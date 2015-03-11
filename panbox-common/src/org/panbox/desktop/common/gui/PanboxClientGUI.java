@@ -301,8 +301,13 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 									.getCertEncFingerprint());
 							signKeyFprintTextField.setText(contact
 									.getCertSignFingerprint());
-							validFromUntilLabel.setText("Valid: "
-									+ contact.getFromDate() + " - " // NOI18N
+							validFromUntilLabel.setText(bundle
+									.getString("valid.from")
+									+ " "
+									+ contact.getFromDate()
+									+ " "
+									+ bundle.getString("valid.to")
+									+ " "
 									+ contact.getUntilDate());
 
 							// disable apply and discard buttons when contact
@@ -1167,7 +1172,8 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 				.getString("client.addressList.fprintSign")); // NOI18N
 
 		signKeyFprintTextField.setEnabled(false);
-		signKeyFprintTextField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 9));
+		signKeyFprintTextField
+				.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 9));
 
 		validFromUntilLabel.setText("null");
 
@@ -1585,7 +1591,8 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 				.getString("client.deviceList.fprintDeviceKey")); // NOI18N
 
 		deviceKeyFprintTextField.setEnabled(false);
-		deviceKeyFprintTextField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 9));
+		deviceKeyFprintTextField.setFont(new Font(Font.MONOSPACED, Font.PLAIN,
+				9));
 
 		javax.swing.GroupLayout expertModeDevicePanelLayout = new javax.swing.GroupLayout(
 				expertModeDevicePanel);
@@ -2320,8 +2327,8 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 
 	private void publishContactButtonActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_publishContactButtonActionPerformed
-		PublishIdentitiesWoPINDialog d = new PublishIdentitiesWoPINDialog(client,
-				contacts);
+		PublishIdentitiesWoPINDialog d = new PublishIdentitiesWoPINDialog(
+				client, contacts);
 		d.setLocationRelativeTo(this);
 		d.setVisible(true);
 	}// GEN-LAST:event_publishContactButtonActionPerformed
@@ -2330,7 +2337,10 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_contactVerificationStatusCheckBoxActionPerformed
 		if (contactVerificationStatusCheckBox.isSelected()) {
 			String message = bundle
-					.getString("PanboxClientGUI.really.verifiy.contact")  + "\nFingerprint Enc: " + contact.getCertEncFingerprint() + "\nFingerprint Sign: " + contact.getCertSignFingerprint();
+					.getString("PanboxClientGUI.really.verifiy.contact")
+					+ "\nFingerprint Enc: "
+					+ contact.getCertEncFingerprint()
+					+ "\nFingerprint Sign: " + contact.getCertSignFingerprint();
 			int reallyTrust = JOptionPane.showConfirmDialog(null, message,
 					bundle.getString("PanboxClientGUI.panboxMessage"),
 					JOptionPane.YES_NO_OPTION);
@@ -2730,7 +2740,8 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 							// add permission for user
 							ContactShareParticipant cp = new ContactShareParticipant(
 									result.get(i));
-							if (Settings.getInstance().getExpertMode() && !cp.getContact().isVerified()) {
+							if (Settings.getInstance().getExpertMode()
+									&& !cp.getContact().isVerified()) {
 								int res = JOptionPane.showConfirmDialog(
 										client.getMainWindow(),
 										MessageFormat.format(
@@ -3404,7 +3415,7 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 		DefaultComboBoxModel<InetAddress> model = new DefaultComboBoxModel<>();
 		List<InetAddress> addrs = Collections.list(nic.getInetAddresses());
 		for (InetAddress addr : addrs) {
-			if(addr instanceof Inet4Address) { // ignore IPv6 addresses!!!
+			if (addr instanceof Inet4Address) { // ignore IPv6 addresses!!!
 				model.addElement(addr);
 			}
 		}

@@ -36,6 +36,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.TableModel;
 
+import org.panbox.Settings;
 import org.panbox.core.Utils;
 import org.panbox.core.csp.StorageBackendType;
 import org.panbox.core.identitymgmt.AbstractIdentity;
@@ -156,8 +157,9 @@ public class PanboxGUIContact {
 	}
 
 	private String formatDate(Date date) {
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-		return df.format(date);
+		DateFormat df = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, Settings.getInstance().getLocale());
+		DateFormat tf = new SimpleDateFormat("HH:mm:ss");
+		return df.format(date) + " " + tf.format(date);
 	}
 
 	public TableModel generateCspInfoTableModel() {

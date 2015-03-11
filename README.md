@@ -21,7 +21,7 @@ Cloud storage is very popular due to ease of use, cheap prices and fast internet
 
 Feel free to create your own PanBox fork on github. We are always happy about any contribution and merge requests on github and are looking forward work with an activate community.
 
-Get involed today! If you are interested in extending PanBox feel free to send us your merge request or contact us!
+Get involved today! If you are interested in extending PanBox feel free to send us your merge request or contact us!
 
 ## Questions or Remarks?
 

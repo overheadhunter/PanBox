@@ -1,0 +1,42 @@
+1. Decide the size of image in inches or cm (1 inch = 2,54 cm):
+	For example 0,5 x 05 inch or 1,27 x 1,27 cm image
+2. Knowing the Density buckets (120, 160, 240, 320, 480) compute the images size for each bucket as follows:
+
+	For example, having 320 dpi density the resulting image will be: 320 px/inch * 0, 5 inch = 160 px
+
+	Q:Need 1 cm x 1 cm image, what size in pixels it must have for 320 dpi?
+	A: 	
+		1 inch - 2,54 cm
+		x inch - 1 cm
+		x:1 = 1: 2,54
+		x = 1/2,54 = 0,40 inch
+
+		320 px/inch * 0,4 inch = 128 px
+
+QR-Scanner image size:
+		
+	320 dpi => xhdpi -> double -> 1 dp * 2 px/dp = 2 px
+	
+	200 dp image width for 320 dpi is 400 px => 400 px / 320 px/inch = 1,25 inch => it is way to little, take two times more dp => 400 dp => 800 px / 320 px/inch = 2,5 inch = 6,35 cm   
+		 
+
+================================================================================================================================
+if you are experiencing problems with the theme of appcompat, then do the following steps to resolve the problem:
+
+
+
+
+I did the following in Eclipse with the Android Support Library (L) project and the Main Project (M):
+
+    Ensured both L and M had the same minSdkVerson and targetSdkVersion
+
+    Added project L as a build dependency for project M by going into "Properties > Java Build Path" of Project M, selecting the "Projects" tab and adding Project L.
+
+    In the properties of project M, under "Android", added a reference to L under library.
+
+1 and 2 got the references to java classes working fine.... however I was still seeing the error in the Manifest xml for project M when trying to reference "@style/Theme.AppCompat.Light" from project L. This only went away when I performed step 3.
+
+
+Explorer extends MainActivity to support ActionBar.
+When 
+ 

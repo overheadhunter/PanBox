@@ -1,0 +1,34 @@
+<menu 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+   
+    <item 
+        android:id="@+id/shares_action"
+        android:title="@string/li_settings"
+        android:showAsAction="always"
+        android:actionLayout="@layout/pb_actionbar"/>
+    
+   	<item 
+        android:id="@+id/actionbar_settings"
+        android:title="@string/li_settings"
+        android:showAsAction="never"
+        android:onClick="showSettingsActivity" />
+	
+	<item 
+        android:id="@+id/actionbar_import_vcard"
+        android:title="@string/li_import_contacts"
+        android:showAsAction="never"
+        android:onClick="processVCard" />
+	<item 
+        android:id="@+id/actionbar_export_vcard"
+        android:title="@string/li_export_addressbook"
+        android:showAsAction="never"
+        android:onClick="generateVCard" />
+	
+	<item 
+        android:id="@+id/actionbar_about"
+        android:title="@string/li_about"
+        android:showAsAction="never"
+        android:onClick="showAboutActivity" />
+	
+</menu>

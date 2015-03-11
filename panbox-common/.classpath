@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/panbox-core"/>
+	<classpathentry exported="true" kind="lib" path="/panbox-core/lib/commons-io-2.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/panbox-core/lib/commons-io-2.4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/dropbox-core-sdk-1.7.6.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.2.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/zxing-core-3.1.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/zxing-core-3.1.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/zxing-core-3.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/zxing-javase-3.1.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/zxing-javase-3.1.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/zxing-javase-3.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/javacpp.jar"/>
+	<classpathentry kind="lib" path="lib/javacv.jar"/>
+	<classpathentry kind="lib" path="lib/opencv.jar"/>
+	<classpathentry kind="lib" path="lib/videoinput.jar"/>
+	<classpathentry kind="lib" path="/panbox-core/lib/commons-codec-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="/panbox-core/lib/bluecove-2.1.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/panbox-core/lib/bluecove-gpl-2.1.1-SNAPSHOT.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-common" default="default">
+
+	<import file="../panbox-linux/dependencies.xml"/>
+
+	<target name="default" depends="dist.dependencies"/>
+
+	<target name="init" description="Prepare needed directories.">
+		<mkdir dir="${build}"/>
+		<mkdir dir="${buildtest}"/>
+		<mkdir dir="${dist}"/>
+	</target>
+
+	<target name="clean" description="Remove all files created by the build/test process.">
+		<delete dir="${build}"/>
+		<delete dir="${buildtest}"/>
+		<delete dir="${dist}"/>
+	</target>
+
+	<target name="clean_all">
+		<ant antfile="build.xml" dir="../panbox-core/" inheritAll="false" target="clean"/>
+		<ant antfile="build.xml" dir="../panbox-common/" inheritAll="false" target="clean"/>
+		<ant antfile="build.xml" dir="../panbox-linux/" inheritAll="false" target="clean"/>
+		<ant antfile="build.xml" dir="../panbox-win/" inheritAll="false" target="clean"/>
+	</target>
+
+	<target name="dist.dependencies">
+		<antcall target="depend.${ant.project.name}"/>
+		<antcall target="dist"/>
+	</target>
+
+	<target name="junit" depends="compile">
+		<junit fork="yes" printsummary="yes" dir=".">
+			<formatter type="plain" usefile="false"/>
+			<classpath refid="${ant.project.name}.classpath"/>
+			<test name="all.AllTests"/>
+		</junit>
+	</target>
+
+	<target name="compile">
+	</target>
+</project>

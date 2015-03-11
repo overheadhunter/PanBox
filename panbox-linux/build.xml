@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="panbox-linux" default="dist">
+	<import file="../panbox-linux/build-common.xml" />
+
+	<target name="compile" depends="init">
+		<javac target="1.7" srcdir="${src}" destdir="${build}">
+			<classpath refid="${ant.project.name}.classpath" />
+		</javac>
+		<!--<javac srcdir="${test}" destdir="${buildtest}"> -->
+		<!--<classpath refid="${ant.project.name}.classpath" /> -->
+		<!--</javac> -->
+		<copy todir="${build}">
+			<fileset dir="${src}" includes="**/Messages*.properties" />
+		</copy>
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<pathconvert property="mf.classpath" pathsep=" ">
+			<path refid="${ant.project.name}.classpath" />
+			<map from="" to="${lib}/" />
+			<flattenmapper />
+		</pathconvert>
+		<jar destfile="${dist}/${ant.project.name}.jar" basedir="${build}">
+			<zipgroupfileset dir="..">
+				<include name="panbox-core/dist/panbox-core.jar" />
+				<include name="panbox-common/dist/panbox-common.jar" />
+			</zipgroupfileset>
+			<service type="org.panbox.core.csp.CSPAdapterFactory">
+				<provider classname="org.panbox.desktop.common.vfs.backend.dropbox.DropboxAdapterFactory" />
+				<provider classname="org.panbox.desktop.common.vfs.backend.generic.GenericAdapterFactory" />
+			</service>
+			<manifest>
+				<attribute name="Built-By" value="SIT" />
+				<attribute name="Main-Class" value="org.panbox.desktop.linux.PanboxClient" />
+				<attribute name="Class-Path" value=". ${mf.classpath}" />
+				<attribute name="SplashScreen-Image" value="org/panbox/desktop/common/gui/panbox_splashscreen.png" />
+			</manifest>
+		</jar>
+		<copy todir="${dist}/${lib}">
+			<fileset dir="${lib}">
+				<include name="*.jar" />
+				<exclude name="*javadoc.jar" />
+				<exclude name="*sources.jar" />
+			</fileset>
+			<fileset dir="../panbox-core/dist/${lib}" includes="*.jar" />
+			<fileset dir="../panbox-common/dist/${lib}" includes="*.jar" />
+		</copy>
+		<copy todir="${dist}">
+			<fileset dir="${res}/scripts" includes="*.sh" />
+			<!--<fileset dir="src/org/panbox/desktop/linux/cli" includes="*.py" />-->
+			<fileset dir="src/org/panbox/desktop/linux/gui/tray">
+				<include name="*.py" />
+			</fileset>
+		</copy>
+		<copy todir="${dist}">
+			<fileset dir="${res}/txt">
+				<include name="**/*.txt" />
+				<include name="**/*.desktop" />
+			</fileset>
+		</copy>
+		<copy todir="${dist}">
+			<fileset dir=".">
+				<include name="log4j.properties" />
+			</fileset>
+		</copy>
+		<!--<copy todir="${dist}/nautilus-extension">
+			<fileset dir="src/org/panbox/desktop/linux/nautilus">
+				
+		<include name="nautilus_panbox.py" />
+		<include name="install.sh" />
+	</fileset>
+</copy>
+<copy todir="${dist}/nautilus-extension/img">
+	<fileset dir="${res}/img/">
+		<include name="panbox-icon.png" />
+	</fileset>
+</copy>
+<copy todir="${dist}/nautilus-extension/locale">
+	<fileset dir="src/org/panbox/desktop/linux/nautilus/locale" includes="**" />
+</copy> -->
+		<copy todir="${dist}/img">
+			<fileset dir="${res}/img/">
+				<include name="panbox-icon.png" />
+				<include name="panbox-icon-big.png" />
+			</fileset>
+		</copy>
+		<copy todir="${dist}/locale">
+			<fileset dir="src/org/panbox/desktop/linux/gui/tray/locale" includes="**" />
+		</copy>
+		<delete dir="installer/panbox" />
+		<copy todir="installer/panbox">
+			<fileset dir="${dist}" includes="**/*" />
+			<fileset dir="${res}/scripts" includes="**/*" />
+		</copy>
+		<zip destfile="installer/output/panbox.zip" duplicate="preserve">
+			<zipfileset dir="${dist}" includes="**/*.sh" filemode="755" />
+			<zipfileset dir="${dist}" includes="**/*.py" filemode="755" />
+			<zipfileset dir="${dist}" excludes="**/*.sh" />
+			<zipfileset dir="${dist}" excludes="**/*.py" />
+		</zip>
+	</target>
+</project>

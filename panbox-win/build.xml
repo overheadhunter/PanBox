@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="panbox-win" default="dist">
+	<import file="../panbox-linux/build-common.xml"/>
+
+	<target name="compile" depends="init">
+		<javac target="1.7" srcdir="${src}" destdir="${build}">
+			<classpath refid="${ant.project.name}.classpath" />
+		</javac>
+		<copy todir="${build}">
+			<fileset dir="${src}" includes="**/Messages*.properties"/>
+		</copy>
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<pathconvert property="mf.classpath" pathsep=" ">
+			<path refid="${ant.project.name}.classpath" />
+			<map from="" to="${lib}/" />
+			<flattenmapper />
+		</pathconvert>
+		<copy todir="${dist}/${lib}">
+			<fileset dir="${lib}" includes="*.jar"/>
+			<fileset dir="../panbox-core/${lib}" includes="*.jar"/>
+			<fileset dir="../panbox-common/${lib}" includes="*.jar"/>
+		</copy>
+		<copy todir="${build}">
+			<fileset dir="resources" includes="**"/>
+		</copy>
+		<jar destfile="${dist}/${ant.project.name}.jar" basedir="${build}">
+			<zipgroupfileset dir="..">
+				<include name="panbox-core/dist/panbox-core.jar"/>
+				<include name="panbox-common/dist/panbox-common.jar"/>
+			</zipgroupfileset>
+			<service type="org.panbox.core.csp.CSPAdapterFactory">
+				<provider
+					classname="org.panbox.desktop.common.vfs.backend.dropbox.DropboxAdapterFactory" />
+				<provider
+					classname="org.panbox.desktop.common.vfs.backend.generic.GenericAdapterFactory" />
+			</service>
+			<manifest>
+				<attribute name="Built-By" value="Panbox.org"/>
+				<attribute name="Main-Class" value="org.panbox.desktop.windows.client.PanboxClient"/>
+				<attribute name="Class-Path" value=". ${mf.classpath}" />
+				<attribute name="SplashScreen-Image" value="panbox_splashscreen.png" />
+			</manifest>
+		</jar>
+		<delete file="${dist}/dependencies.jar"/>
+		<copy todir="${dist}">
+			<fileset dir="../panbox-core/lib" includes="bcpkix-jdk15on-151.jar bcprov-jdk15on-151.jar"/>
+		</copy>
+	</target>
+	
+	<target name="clean" description="Remove all files created by the build/test process.">
+		<delete dir="${build}"/>
+		<delete dir="${buildtest}"/>
+		<delete dir="${dist}"/>
+	</target>
+</project>

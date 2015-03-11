@@ -1,0 +1,113 @@
+<resources>
+
+    <string name="app_name">Panbox</string>
+	<string name="shares_label">Shares</string>
+	<string name="filebrowser_label">Filebrowser</string>
+	<string name="li_settings">Einstellungen</string>
+	<string name="li_about">Über Panbox</string>
+	<string name="li_import_contacts">Kontakte importieren</string>
+	<string name="li_export_addressbook">Adressbuch exportieren</string>
+	<string name="list_icon_desc">PDF Icon</string>
+	<string name="settings_text">Hier können Sie alle Einstellungen zu Panbox ändern:</string> 
+	<string name="lang_setts">Sprache</string>
+	<string name="db_account_hint_text">Hier können Sie Ihr Dropbox-Konto wechseln, das für den Gebrauch mit Panbox genutzt werden soll.</string>
+	<string name="password_hint_text">Bitte geben Sie Ihr Passwort ein</string>
+	<string name="pin_fname_hint_text">Bitte wählen Sie Dateiname und PIN</string>
+	
+	
+	<string name="dropbox_access_token"/>
+	<string name="dropbox_app_key">ø</string>
+    <string name="dropbox_app_secret">aj8mkgfis9mxd5a</string>
+	
+	<string name="db_login_lab">Benutzername (E-Mail):</string>
+	<string name="db_pass_lab">Passwort:</string>
+	<string name="db_pairing_pass_lab">Passwort:</string>
+	<string name="db_pairing_code_lab">Kopplungs-Code:</string>
+	<string name="pb_export_pin_lab">PIN:</string>
+    <string name="pb_export_filename_lab">Dateiname:</string>
+    
+	<string name="db_setts_btn_text">Dropbox Einstellungen</string>
+	<string name="db_setts_btn_login_text">Bei Dropbox anmelden</string>
+	<string name="db_setts_btn_logout_text">Von Dropbox abmelden</string>
+	
+	<string name="man_pairing_btn_text">Kopplung manuell durchführen</string>
+	<string name="auto_pairing_btn_text">Kopplung automatisch durchführen</string>
+	<string name="start_pairing_btn_text">Start</string>
+    <string name="choose_location_btn_text">Auswählen</string>
+	<string name="browse_file_btn_text">Datei wählen</string>
+	<string name="cancel_btn_text">Abbrechen</string>
+	<string name="save_btn_text">Speichern</string>
+	<string name="choose_dir_text">Diesen Ordner verwenden</string>
+	<string name="vcard_successfully_exported">Kontakte wurden erfolgreich exportiert. Ort:</string>
+   
+	<string name="scanner_desc">Scanner Beschreibung</string>
+	
+	<string name="logo_desc">Panbox ist ein Produkt vom Fraunhofer SIT und der Sirrix AG</string>
+	<string name="sirrix">Sirrix AG</string>
+
+	
+	<string name="qr_scanner_instruction_text">Scannen Sie den QR-Code auf Ihrem Rechner, um die Kopplung automatisch durchzuführen.</string>
+	<string name="assistent_title_text">Panbox Setup Assistent</string>
+	<string name="pairing_hint1_text">Bitte geben Sie den auf dem Rechner gezeigten Kopplungs-Code ein.</string>
+	<string name="pairing_hint2_text">Wenn Sie eine Kopplungs-Datei haben, klicken Sie stattdessen auf "Datei wählen" und navigieren Sie zur Kopplungs-Datei</string>
+	
+	<string name="panbox_about_text">Copyright © 2014-2015 von Fraunhofer SIT und Sirrix AG\n\
+	    \n\
+	    Die Lizenzbedingungen von Panbox sind auf der offiziellen Homepage einsehbar.\n\
+	    \n\
+	    Version 1.0.0</string>
+	
+	<string name="pb_already_in_root_text">"Sie sind bereits an der Wurzel dieses Shares"</string>
+	
+	<string name="nfc_label">NFC</string>
+	<string name="pb_identity_visualization_notice">Stellen Sie sicher, dass diese Identität der beim Empfänger entspricht</string>
+	<string name="pb_nfc_receive_notice">Stellen Sie sicher, dass diese Identität der beim Sender entspricht</string>
+	<string name="pb_nfc_start_msg">Starte NFC für %1$d Sekunden</string>
+	<string name="pb_nfc_stop_msg">NFC wurde automatisch wieder ausgeschaltet</string>
+	<string name="pb_activate_btn">Aktivieren</string>
+	<string name="pb_deactivate_btn">Deaktivieren</string>
+	<string name="pb_contact_existsToast">Kontakt existiert bereits</string>
+	<string name="pb_contact_import_successToast">Kontakt erfolgreich importiert</string>
+	
+	<string name="pb_please_wait">Bitte warten Sie einen Moment!</string>
+	<string name="pb_loading">"Lade"</string>
+	<string name="pb_failed_auth">"Authentifizierung fehlgeschlagen"</string>
+	<string name="pb_share">"Share"</string>
+	<string name="pb_shares_for">"Shares für"</string>
+	<string name="pb_path">"Pfad"</string>
+    <string name="pb_for">"für"</string>
+	<string name="pb_root_directory">"Wurzelverzeichnis"</string>
+	<string name="pb_to_parent_directory">"zum Elternverzeichnis"</string>
+	<string name="pb_user">Benutzer</string>
+	
+	<!-- Fehelrmeldungen Anfang-->
+	
+	<string name="pb_could_not_find_file_on_disk">"Diese Datei ist auf der Festplate nicht vorhanden"</string>
+	<string name="pb_could_not_decrypt">"Es ist ein Entschlüsselungsfehler aufgetreten</string>
+	<string name="pb_could_not_deobfuscate">"Es ist ein Deobfuskierungsfehler aufgetreten</string>
+	<string name="pb_could_not_read_file">"Die Datei konnte nicht gelesen werden"</string>
+	<string name="pb_could_not_import_all_contacts">"Es konnten nicht alle Kontakte ins Adressbuch importiert werden. Eventuell waren sie bereits vorhanden"</string>
+	<string name="pb_not_a_pairing_file">"Die gewählte Datei ist keine Pairing-Datei"</string>
+	<string name="pb_no_share_chosen_text">"Es wurde keine Share gewählt. Bitte wählen Sie einen Share aus der Shareliste"</string>
+	<string name="pb_obtain_credentials">Dieses Gerät ist nicht für diesen Share freigegeben</string>
+	<string name="pb_file_corrupted">Die Datei ist entweder beschädigt, oder ist nicht PKCS#12 konform, oder Passwort ist falsch</string>
+	<string name="pb_password_required">"Leider ohne Passwort geht es nicht!"</string>
+	 <string name="pb_pin_and_filename_required">"Es ist sowohl Dateiname, als auch PIN erforderlich!"</string>
+	<string name="pb_user_not_authenticated_text">"Sie sind nicht authentifizeirt. Bitte gehen Sie in die Einstellungen und melden sich dort mit Ihrem Dropbox-Konto an, um auf Ihre Shares zugreifen zu können."</string>
+	<string name="pb_not_share_onwer_text">"Sie sind nicht der Ersteller dieses Shares"</string>
+	<string name="pb_no_data_passed">"Es wurden keine Daten übergeben!"</string>
+	<string name="pb_file_not_chosen">"Es wurde keine Datei gewählt!"</string>
+	<string name="pb_contact_exists">"Ein oder mehrere Kontakte waren schon vorhanden"</string>
+    <string name="pb_pairing_error_occurred">Ein Fehler ist während der Kopplung aufgetreten. Bitte wiederholen Sie den Vorgang!</string>
+		
+	<!-- Fehelrmeldungen Ende-->
+	
+	<string name="pb_refresh_content">"Aktualisiere Liste"</string>
+	<string name="pb_contacts_successfully_imported">"Kontakte erfolgreich importiert"</string>
+	 
+	<string name="pb_name">"Name:"</string>
+	<string name="pb_email">"E-Mail:"</string>
+	<string name="pb_curr_user">"Aktueller Benutzer: "</string>
+    <string name="title_activity_pairing_execution">PairingExecutionActivity</string>
+	 
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+    
+     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/panbox_custom_actionbar"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/pb_actionbar_height" 
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"/>

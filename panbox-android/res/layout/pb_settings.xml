@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+            
+    <TextView
+		android:id="@+id/settings_hint"
+   		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:padding="10dp"
+		android:text="@string/settings_text"/>
+    
+    <LinearLayout 
+        android:id="@+id/settings_curr_user_container"
+        android:orientation="horizontal"
+   		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_below="@id/settings_hint"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+    
+        	<TextView
+				android:id="@+id/settings_curr_user_label"
+		   		android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:text="@string/pb_curr_user"/>
+
+        	<TextView
+				android:id="@+id/settings_curr_user"
+		   		android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:ellipsize="middle"
+        		android:singleLine="true"/>
+        			    
+    </LinearLayout> 
+    
+   	<Button 
+            android:id="@+id/settings_dropbox_auth_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/settings_curr_user_container"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/db_setts_btn_login_text"/>
+
+   <Spinner
+       android:id="@+id/pb_settings_language"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_below="@id/settings_dropbox_auth_button"
+       android:layout_marginLeft="15dp"
+       android:layout_marginRight="15dp">
+    </Spinner>	
+</RelativeLayout>

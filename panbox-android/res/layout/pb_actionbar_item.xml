@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="vertical"
+	    android:background="@color/custom_actionbar_bg"
+	    android:clickable="true"
+	    android:paddingLeft="15dip"
+	    android:paddingRight="15dip">
+		
+		<ImageView 
+		    android:id="@+id/pb_item_icon"
+		    android:layout_width="wrap_content"
+		    android:layout_height="@dimen/pb_icon_height"
+		    android:singleLine="true"
+		    android:clickable="false"
+		    android:layout_gravity="center_horizontal"/>
+		
+		<TextView 
+		    android:id="@+id/pb_item_text"
+		    android:layout_height="wrap_content"
+		    android:layout_width="wrap_content"
+		    android:textColor="@color/grey_text"
+		    android:layout_gravity="center_horizontal">
+		    
+		</TextView>
+		
+	</LinearLayout>

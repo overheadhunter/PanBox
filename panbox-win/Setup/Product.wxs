@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?include "Settings.wxi" ?>
+
+  <Product Id="$(var.ProductId)" Name="$(var.Product)" Language="1033" Version="$(var.Version)" Manufacturer="$(var.Company)" UpgradeCode="$(var.UpgradeCode)">
+    <Package Id="*" InstallerVersion="405" Compressed="yes" InstallScope="perMachine" Description="$(var.Product) $(var.Version) Installer" Manufacturer="$(var.Company)" />
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <!-- Update Management -->
+    <!-- Remove existing version only after InstallFinalize to prevent merge modules from missing after the upgrade (http://support.microsoft.com/kb/905238/en-us) -->
+    <MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed." Schedule="afterInstallFinalize" />
+    <Upgrade Id="$(var.UpgradeCode)" >
+      <!-- Use the property ISUPDATE for detecting if this is a new installation or an upgrade of an existing installation (detects all versions x, with 1.0.0.0 <= x < thisVersion) -->
+      <UpgradeVersion Minimum="0.9.0.0" Maximum="$(var.Version)" IncludeMinimum="yes" IncludeMaximum="no" OnlyDetect="no" Property="ISUPDATE" />
+    </Upgrade>
+    
+    <!-- Properties -->
+    <Property Id="DOKAN_INSTALLED64">
+        <DirectorySearch Path="[System64Folder]Drivers" AssignToProperty="no" Id="SystemDriverFolder64">
+          <FileSearch Name="dokan.sys" Id="DokanDriverFile64"/>
+        </DirectorySearch>
+    </Property>
+    <Property Id="DOKAN_INSTALLED">
+        <DirectorySearch Path="[SystemFolder]Drivers" AssignToProperty="no" Id="SystemDriverFolder">
+          <FileSearch Name="dokan.sys" Id="DokanDriverFile"/>
+        </DirectorySearch>
+    </Property>
+    <Condition Message="Dokan library is not installed. Please install Dokan 0.6.0 or later."><![CDATA[Installed OR ( DOKAN_INSTALLED AND Not VersionNT64 ) OR ( DOKAN_INSTALLED64 AND VersionNT64 )]]></Condition>
+    
+    <!-- Step 1: Define the directory structure -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="PanboxProgramsFolder" Name="$(var.Company)" />
+      </Directory>
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="PanboxDir" Name="$(var.Company)">
+          <Directory Id="INSTALLLOCATION" Name="$(var.Product)">
+            <Directory Id="ServiceLogDir" Name="ServiceLog" />
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="SystemFolder">
+      </Directory>
+    </Directory>
+    
+    <!-- Step 2: Add files to the defined directories -->
+    <DirectoryRef Id="TARGETDIR">
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <Component Id="PanboxServiceRegistration">
+        <!-- Registration procrun configuration for windows service -->
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Apache Software Foundation\Procrun 2.0\PanboxService\Parameters\Java" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Name="Jvm" Value="[INSTALLLOCATION]jre\bin\client\jvm.dll"/>
+          <RegistryValue Type="string" Name="Classpath" Value=".;[INSTALLLOCATION];[INSTALLLOCATION]lib\*;[INSTALLLOCATION]panbox-win.jar"/>
+          <RegistryValue Type="multiString" Name="Options" Value=""/>
+          <RegistryValue Type="integer" Name="JvmMs" Value="0"/>
+          <RegistryValue Type="integer" Name="JvmMx" Value="0"/>
+          <RegistryValue Type="integer" Name="JvmSs" Value="0"/>
+        </RegistryKey>
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Apache Software Foundation\Procrun 2.0\PanboxService\Parameters\Log" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Name="Path" Value="[INSTALLLOCATION]serviceLog"/>
+          <RegistryValue Type="string" Name="StdError" Value="auto"/>
+          <RegistryValue Type="string" Name="StdOutput" Value="auto"/>
+          <RegistryValue Type="string" Name="Level" Value="Info"/>
+          <RegistryValue Type="string" Name="Prefix" Value="commons-daemon"/>
+        </RegistryKey>
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Apache Software Foundation\Procrun 2.0\PanboxService\Parameters\Start" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Name="Class" Value="org.panbox.desktop.windows.service.PanboxWindowsService"/>
+          <RegistryValue Type="string" Name="Method" Value="startService"/>
+          <RegistryValue Type="string" Name="Mode" Value="jvm"/>
+        </RegistryKey>
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Apache Software Foundation\Procrun 2.0\PanboxService\Parameters\Stop" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Name="Class" Value="org.panbox.desktop.windows.service.PanboxWindowsService"/>
+          <RegistryValue Type="string" Name="Method" Value="stopService"/>
+          <RegistryValue Type="string" Name="Mode" Value="jvm"/>
+        </RegistryKey>
+        <!-- Registration windows service -->
+        <RegistryKey Root="HKLM" Key="SYSTEM\CurrentControlSet\services\PanboxService" ForceCreateOnInstall="yes">
+          <RegistryValue Type="integer" Name="Type" Value="16"/>
+          <RegistryValue Type="integer" Name="Start" Value="2"/>
+          <RegistryValue Type="integer" Name="ErrorControl" Value="1"/>
+          <RegistryValue Type="string" Name="ImagePath" Value="prunsrv.exe //RS//PanboxService"/>
+          <RegistryValue Type="string" Name="DisplayName" Value="Panbox Service"/>
+          <RegistryValue Type="multiString" Name="DependsOnService" Value="Tcpip Afd"/>
+          <RegistryValue Type="string" Name="ObjectName" Value="LocalSystem"/>
+          <?if $(sys.BUILDARCH)=x64?> <!-- Only for 64bit systems. Otherwise the service will not find its configuration in the SysWOW64 section -->
+            <RegistryValue Type="integer" Name="WOW64" Value="1"/>
+          <?endif?>
+        </RegistryKey>
+        <RegistryKey Root="HKLM" Key="SYSTEM\CurrentControlSet\services\PanboxService\Parameters" ForceCreateOnInstall="yes" />
+      </Component>
+      <Component Id="PanboxServiceRegistration64">
+        <RegistryKey Root="HKLM" Key="SYSTEM\CurrentControlSet\services\PanboxService" ForceCreateOnInstall="yes">
+            <RegistryValue Type="integer" Name="WOW64" Value="1"/>
+        </RegistryKey>
+        <Condition><![CDATA[Not Installed AND VersionNT64]]></Condition>
+      </Component>
+      <Component Id="PanboxServiceConfiguration">
+        <RegistryKey Root="HKLM" Key="Software\$(var.Company)\$(var.Product)" ForceCreateOnInstall="yes">
+          <RegistryValue Type="integer" Name="installed" Value="1"/>
+          <RegistryValue Type="string" Name="MountPoint" Value="P"/>
+          <RegistryValue Type="string" Name="debugMode" Value="false"/>
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+    
+    <!-- System-service related files -->
+    <DirectoryRef Id="SystemFolder">
+      <Component Id="PathVariable" Guid="107FDD47-5CFC-4252-ABD9-FF3DC19D70F7" Permanent="yes">
+        <CreateFolder/>
+        <Environment Id="PATH" Name="PATH" Value="[SystemFolder]" Permanent="yes" Part="last" Action="set" System="yes" />
+      </Component>
+      <Component Id="prunmgr.exe" Permanent="yes">
+        <File Source="$(var.DistDir)\prunmgr.exe" />
+      </Component>
+      <Component Id="prunsrv.exe" Permanent="yes">
+        <File Source="$(var.DistDir)\prunsrv.exe" />
+      </Component>
+      <Component Id="JDokan.dll" Permanent="yes">
+        <File Source="$(var.DistDir)\JDokan.dll" />
+      </Component>
+      <Component Id="Panbox.ico" Permanent="yes">
+        <File Source="$(var.DistDir)\Panbox.ico" />
+      </Component>
+    </DirectoryRef>
+    
+    <!-- Panbox-application related files -->
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="jniopencv_core.dll">
+        <File Source="$(var.DistDir)\jniopencv_core.dll" />
+      </Component>
+      <Component Id="jniopencv_highgui.dll">
+        <File Source="$(var.DistDir)\jniopencv_highgui.dll" />
+      </Component>
+      <Component Id="jniopencv_imgproc.dll">
+        <File Source="$(var.DistDir)\jniopencv_imgproc.dll" />
+      </Component>
+      <Component Id="jniopencv_ml.dll">
+        <File Source="$(var.DistDir)\jniopencv_ml.dll" />
+      </Component>
+      <Component Id="jnivideoInputLib.dll">
+        <File Source="$(var.DistDir)\jnivideoInputLib.dll" />
+      </Component>
+      <Component Id="opencv_core249.dll">
+        <File Source="$(var.DistDir)\opencv_core249.dll" />
+      </Component>
+      <Component Id="opencv_highgui249.dll">
+        <File Source="$(var.DistDir)\opencv_highgui249.dll" />
+      </Component>
+      <Component Id="opencv_imgproc249.dll">
+        <File Source="$(var.DistDir)\opencv_imgproc249.dll" />
+      </Component>
+      <Component Id="panbox_win.jar">
+        <File Source="$(var.DistDir)\panbox-win.jar" />
+      </Component>
+      <Component Id="panbox_splashscreen.png">
+        <File Source="$(var.DistDir)\panbox_splashscreen.png" />
+      </Component>
+      <!-- lib dependencies -->
+      <Directory Id="libFolder" Name="lib">
+        <Component Id="ascii85codec.jar">
+          <File Source="$(var.DistDir)\lib\Ascii85Codec-1.2.jar" />
+        </Component>
+        <Component Id="bcpkix.jar">
+          <File Source="$(var.DistDir)\lib\bcpkix-jdk15on-151.jar" />
+        </Component>
+        <Component Id="bcprov.jar">
+          <File Source="$(var.DistDir)\lib\bcprov-jdk15on-151.jar" />
+        </Component>
+        <Component Id="bluecove.jar">
+          <File Source="$(var.DistDir)\lib\bluecove-2.1.1-SNAPSHOT.jar" />
+        </Component>
+        <Component Id="bluecovegpl.jar">
+          <File Source="$(var.DistDir)\lib\bluecove-gpl-2.1.1-SNAPSHOT.jar" />
+        </Component>
+        <Component Id="commonscodec.jar">
+          <File Source="$(var.DistDir)\lib\commons-codec-1.8.jar" />
+        </Component>
+        <Component Id="commonscompress.jar">
+          <File Source="$(var.DistDir)\lib\commons-compress-1.8.1.jar" />
+        </Component>
+        <Component Id="commonsio.jar">
+          <File Source="$(var.DistDir)\lib\commons-io-2.4.jar" />
+        </Component>
+        <Component Id="commonslang.jar">
+          <File Source="$(var.DistDir)\lib\commons-lang3-3.3.2.jar" />
+        </Component>
+        <Component Id="dropboxsdk.jar">
+          <File Source="$(var.DistDir)\lib\dropbox-core-sdk-1.7.6.jar" />
+        </Component>
+        <Component Id="ezvcard.jar">
+          <File Source="$(var.DistDir)\lib\ez-vcard-0.9.2.jar" />
+        </Component>
+        <Component Id="jacksoncore.jar">
+          <File Source="$(var.DistDir)\lib\jackson-core-2.2.3.jar" />
+        </Component>
+        <Component Id="javacpp.jar">
+          <File Source="$(var.DistDir)\lib\javacpp.jar" />
+        </Component>
+        <Component Id="javacv.jar">
+          <File Source="$(var.DistDir)\lib\javacv.jar" />
+        </Component>
+        <Component Id="jna.jar">
+          <File Source="$(var.DistDir)\lib\jna-3.5.2.jar" />
+        </Component>
+        <Component Id="platform.jar">
+          <File Source="$(var.DistDir)\lib\platform-3.5.2.jar" />
+        </Component>
+        <Component Id="log4j.jar">
+          <File Source="$(var.DistDir)\lib\log4j-1.2.17.jar" />
+        </Component>
+        <Component Id="opencv.jar">
+          <File Source="$(var.DistDir)\lib\opencv.jar" />
+        </Component>
+        <Component Id="hamcrast.jar">
+          <File Source="$(var.DistDir)\lib\org.hamcrest.core.jar" />
+        </Component>
+        <Component Id="sqlite.jar">
+          <File Source="$(var.DistDir)\lib\sqlite-jdbc-3.8.7.jar" />
+        </Component>
+        <Component Id="videoinput.jar">
+          <File Source="$(var.DistDir)\lib\videoinput.jar" />
+        </Component>
+        <Component Id="zxingcore.jar">
+          <File Source="$(var.DistDir)\lib\zxing-core-3.1.0.jar" />
+        </Component>
+        <Component Id="zxingjavase.jar">
+          <File Source="$(var.DistDir)\lib\zxing-javase-3.1.0.jar" />
+        </Component>
+      </Directory>
+      <!-- CRT for opencv and JDokan.dll (VS2010) -->
+      <Merge Id="CRTRedist" SourceFile="$(env.ProgramFiles)\Common Files\Merge Modules\Microsoft_VC100_CRT_x86.msm" DiskId="1" Language="0"/>
+      <Merge Id="ATLRedist" SourceFile="$(env.ProgramFiles)\Common Files\Merge Modules\Microsoft_VC100_ATL_x86.msm" DiskId="1" Language="0"/>
+    </DirectoryRef>
+    
+    <Icon Id="Panbox.ico" SourceFile="$(var.DistDir)\Panbox.ico" />
+    
+    <DirectoryRef Id="PanboxProgramsFolder">
+      <Component Id="PanboxShortcuts">
+        <Shortcut Id="PanboxShortcut"
+                  Name="$(var.Product)"
+                  Description="The Panbox application"
+                  Target="[INSTALLLOCATION]jre\bin\javaw.exe"
+                  Arguments="-cp &quot;lib\*;panbox-win.jar&quot; -splash:panbox_splashscreen.png org.panbox.desktop.windows.client.PanboxClient"
+                  WorkingDirectory="INSTALLLOCATION"
+                  Icon="Panbox.ico" />
+        <Shortcut Id="PanboxDesktopShortcut"
+                  Name="$(var.Product)"
+                  Directory ="DesktopFolder"
+                  Description="The Panbox application"
+                  Target="[INSTALLLOCATION]jre\bin\javaw.exe"
+                  Arguments="-cp &quot;lib\*;panbox-win.jar&quot; -splash:panbox_splashscreen.png org.panbox.desktop.windows.client.PanboxClient"
+                  WorkingDirectory="INSTALLLOCATION"
+                  Icon="Panbox.ico" />
+        <Shortcut Id="PanboxAdminShortcut"
+                  Name="$(var.Product) VFS Configuration Utility"
+                  Description="Admin Panbox VFS configuration utility"
+                  Target="[INSTALLLOCATION]jre\bin\javaw.exe"
+                  Arguments="-cp &quot;lib\*;panbox-win.jar&quot; org.panbox.desktop.windows.client.PanboxAdminConfigurator"
+                  WorkingDirectory="INSTALLLOCATION"
+                  Icon="Panbox.ico" />
+        <RemoveFolder Id="PanboxProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\$(var.Company)\$(var.Product)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    
+    <!-- Step 3: Tell WiX to install the files -->
+    <Feature Id="DefaultFeature" Title="Panbox" Level="1">
+      <ComponentGroupRef Id="JreFiles"/>
+      
+      <ComponentRef Id="PanboxShortcuts" />
+      <ComponentRef Id="PathVariable" />
+      <ComponentRef Id="PanboxServiceRegistration" />
+      <ComponentRef Id="PanboxServiceRegistration64" />
+      <ComponentRef Id="PanboxServiceConfiguration" />
+      
+      <ComponentRef Id="JDokan.dll" />
+      <ComponentRef Id="jniopencv_core.dll" />
+      <ComponentRef Id="jniopencv_highgui.dll" />
+      <ComponentRef Id="jniopencv_imgproc.dll" />
+      <ComponentRef Id="jniopencv_ml.dll" />
+      <ComponentRef Id="jnivideoInputLib.dll" />
+      <ComponentRef Id="opencv_core249.dll" />
+      <ComponentRef Id="opencv_highgui249.dll" />
+      <ComponentRef Id="opencv_imgproc249.dll" />
+      <ComponentRef Id="Panbox.ico" />
+      <ComponentRef Id="panbox_win.jar" />
+      <ComponentRef Id="panbox_splashscreen.png" />
+      <ComponentRef Id="ascii85codec.jar" />
+      <ComponentRef Id="bcpkix.jar" />
+      <ComponentRef Id="bcprov.jar" />
+      <ComponentRef Id="bluecove.jar" />
+      <ComponentRef Id="bluecovegpl.jar" />
+      <ComponentRef Id="commonscodec.jar" />
+      <ComponentRef Id="commonscompress.jar" />
+      <ComponentRef Id="commonsio.jar" />
+      <ComponentRef Id="commonslang.jar" />
+      <ComponentRef Id="dropboxsdk.jar" />
+      <ComponentRef Id="ezvcard.jar" />
+      <ComponentRef Id="jacksoncore.jar" />
+      <ComponentRef Id="javacpp.jar" />
+      <ComponentRef Id="javacv.jar" />
+      <ComponentRef Id="jna.jar" />
+      <ComponentRef Id="platform.jar" />
+      <ComponentRef Id="log4j.jar" />
+      <ComponentRef Id="opencv.jar" />
+      <ComponentRef Id="hamcrast.jar" />
+      <ComponentRef Id="sqlite.jar" />
+      <ComponentRef Id="videoinput.jar" />
+      <ComponentRef Id="zxingcore.jar" />
+      <ComponentRef Id="zxingjavase.jar" />
+      <ComponentRef Id="prunmgr.exe" />
+      <ComponentRef Id="prunsrv.exe" />
+      <MergeRef Id="ATLRedist"/>                     <!-- Install ATL runtime environment -->
+      <MergeRef Id="CRTRedist"/>                     <!-- Install C/C++ runtime environment -->
+    </Feature>
+  
+    <InstallExecuteSequence>
+      <ScheduleReboot After="InstallFinalize"/>
+    </InstallExecuteSequence>  
+
+  </Product>
+</Wix>

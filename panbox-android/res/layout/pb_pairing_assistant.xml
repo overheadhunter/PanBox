@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:gravity="center_horizontal">
+    
+    <TextView
+		android:id="@+id/assistent_title"
+   		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:text="@string/assistent_title_text"
+		android:gravity="center_horizontal"
+		android:layout_marginTop="10dp"
+		android:layout_marginBottom="10dp"
+		android:textStyle="bold"
+		android:textSize="25sp"/>
+    
+ 	 <TextView
+		android:id="@+id/pairing_hint1"
+   		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:padding="10dip"
+		android:text="@string/pairing_hint1_text"/>
+    
+     <TextView
+		android:id="@+id/paring_code"
+   		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:padding="10dip"
+		android:text="@string/db_pairing_code_lab"/>
+     
+   	<EditText 
+            android:id="@+id/pairing_code_edittext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="text"/>
+   	
+   	<Button 
+        android:id="@+id/start_pairing_button"
+        android:layout_width="@dimen/pb_constant_btn_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"
+        android:text="@string/start_pairing_btn_text"/>
+   	
+ 	 <TextView
+		android:id="@+id/pairing_hint2"
+   		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:padding="10dip"
+		android:text="@string/pairing_hint2_text"/>     
+
+   	<Button 
+        android:id="@+id/browse_file_button"
+        android:layout_width="@dimen/pb_constant_btn_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"
+        android:text="@string/browse_file_btn_text"/>
+   	
+   	<RelativeLayout 
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="0dp"
+   	    android:layout_weight="1"
+   	    android:layout_marginBottom="0dp">
+   		
+   	    <Button 
+	        android:id="@+id/auto_pairing_button"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:text="@string/auto_pairing_btn_text"
+	        android:layout_alignParentBottom="true"/>
+	   
+   	</RelativeLayout>
+   	
+
+</LinearLayout>

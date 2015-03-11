@@ -1,0 +1,15 @@
+<resources>
+    <dimen name="pb_actionbar_height">64dp</dimen>
+    <dimen name="pb_icon_height">44dp</dimen>
+    <dimen name="pb_icon_width">50dp</dimen>
+    <dimen name="path_container">30dp</dimen>
+    <dimen name="pb_account_popup_width">50dp</dimen>
+    <dimen name="pb_account_popup_height">100dp</dimen>
+    <dimen name="pb_qr_scanner_height">400dp</dimen>
+    <dimen name="pb_qr_scanner_width">400dp</dimen>
+    <dimen name="pb_constant_btn_width">180dp</dimen>
+    <dimen name="pb_settings_btn_and_spinner_length">362dp</dimen>
+    
+    
+    
+</resources>

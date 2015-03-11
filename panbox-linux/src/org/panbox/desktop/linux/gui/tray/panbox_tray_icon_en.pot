@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2014-05-23 11:07+CEST\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <timo.nolle@sit.fraunhofer.de>\n"
+"Language-Team: LANGUAGE <timo.nolle@sit.fraunhofer.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: panbox_tray_icon.py:43
+msgid "No connection to Panbox service"
+msgstr "No connection to Panbox service"
+
+#: panbox_tray_icon.py:130
+msgid "Properties"
+msgstr "Properties"
+
+#: panbox_tray_icon.py:138
+msgid "Open Panbox Folder"
+msgstr "Open Panbox Folder"
+
+#: panbox_tray_icon.py:146
+msgid "About"
+msgstr "About"
+
+#: panbox_tray_icon.py:154
+msgid "Exit"
+msgstr "Exit"

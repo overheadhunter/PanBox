@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!-- When creating a new release, change the version number below (changing the build number only is not sufficient). -->
+  <?define MajorVersion="1" ?>
+  <?define MinorVersion="0" ?>
+  <?define PatchLevel="0" ?>
+  <?define BuildNumber="0" ?>
+
+  <!-- When creating a new release, only change the ProductId below (we use major updates only). -->
+  <!-- Note: For the lifetime of a product, through all of its incarnations, the UpgradeCode should never change. -->
+  <?define UpgradeCode="F10554B5-7B3D-4642-978E-5D43DADCF226"?>
+  <?define ProductId="75E3B817-501D-4B5D-A4A7-DB69C2FC8616"?>
+
+  <!-- It should normally not be necessary to change something below this line -->
+  <?define Product="Panbox" ?>
+  <?define Company="Panbox.org" ?>
+  <?define DistDir="..\dist" ?>
+  <?define Version="$(var.MajorVersion).$(var.MinorVersion).$(var.PatchLevel).$(var.BuildNumber)" ?>
+  
+  <!-- When updating JRE files use this command in SolutionDir:
+  
+  heat dir ..\..\..\win-installer-dependencies\jre\jre1.8.0_31 -gg -scom -sreg -srd -cg JreFiles -dr JreFolder -var var.JreFilesDir -out JreFragment.wxs
+  
+  + editing JreFolder to be subfolder of INSTALLLOCATION in JreFragment.wxs (Directory instead of DirectoryRef)
+  + adding Settings.wxi to JreFragment.wxs
+  
+
+    <?include "Settings.wxi" ?>
+    
+    <Fragment>
+      <DirectoryRef Id="INSTALLLOCATION">
+        <Directory Id="JreFolder" Name="jre">
+          <Directory Id="dirDABB266983440463A59E5E023AC8BD87" Name="bin" />
+          <Directory Id="dir58CDCBEAA6F4BC2551F1750B380F7FCD" Name="lib" />
+        </Directory>
+      </DirectoryRef>
+    </Fragment>
+  -->
+  <?define JreFilesDir="..\..\..\win-installer-dependencies\jre\jre1.8.0_31" ?>
+</Include>

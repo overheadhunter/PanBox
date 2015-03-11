@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    
+    
+    <TextView
+		android:id="@+id/qr_scanner_hint"
+   		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:padding="10dip"
+		android:text="@string/db_account_hint_text"
+		android:textColor="@color/black"/>
+    
+     <TextView
+		android:id="@+id/lab_login"
+   		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:padding="10dip"
+		android:text="@string/db_login_lab"
+		android:textColor="@color/black"/>
+     
+   	<EditText 
+            android:id="@+id/login_edittext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="text"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/black"/>
+   	
+   	<TextView
+		android:id="@+id/lab_pass"
+   		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:padding="10dip"
+		android:text="@string/db_pass_lab"
+		android:textColor="@color/black"/>
+     
+   	<EditText 
+            android:id="@+id/pass_edittext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="textPassword"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/black"/>
+</LinearLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Panbox</string>
+    <string name="shares_label">Shares</string>
+    <string name="filebrowser_label">Filebrowser</string>
+    <string name="li_settings">Settings</string>
+    <string name="li_about">About</string>
+    <string name="li_import_contacts">Import contacts</string>
+    <string name="li_export_addressbook">Export Address book</string>
+    <string name="list_icon_desc">PDF Icon</string>
+    <string name="settings_text">Choose settings to be changed:</string>
+    <string name="lang_setts">Language</string>
+    <string name="db_account_hint_text">Here you can change your dropbox account that you want to be securely accessed via the panbox</string>
+    <string name="password_hint_text">Please type the password</string>
+    <string name="pin_fname_hint_text">Please choose file name and PIN</string>
+    <string name="dropbox_access_token" />
+    <string name="dropbox_app_key">0c4z87ogromgnt5</string>
+    <string name="dropbox_app_secret">bg768wuoswhk54n</string>
+    <string name="db_login_lab">Username(Email):</string>
+    <string name="db_pass_lab">Password:</string>
+    <string name="db_pairing_pass_lab">Password:</string>
+   
+	<string name="pb_export_pin_lab">PIN:</string>
+    <string name="pb_export_filename_lab">File name:</string>
+    <string name="choose_dir_text">use this directory</string>
+    <string name="vcard_successfully_exported">Contacts were successfully exported. Location:</string>
+    
+    <string name="db_pairing_code_lab">Pairing-Code:</string>
+    <string name="db_setts_btn_text">Dropbox Settings</string>
+    <string name="db_setts_btn_login_text">Login into Dropbox</string>
+    <string name="db_setts_btn_logout_text">Logout from Dropbox</string>
+    <string name="man_pairing_btn_text">Conduct Pairing manually</string>
+    <string name="auto_pairing_btn_text">Conduct Pairing automatically</string>
+    <string name="start_pairing_btn_text">Start</string>
+    <string name="choose_location_btn_text">Choose</string>
+    <string name="browse_file_btn_text">Browse File</string>
+    <string name="cancel_btn_text">Cancel</string>
+    <string name="save_btn_text">Save</string>
+    <string name="scanner_desc">scanner description</string>
+    <string name="logo_desc">Panbox is a product of Fraunhofer SIT and Sirrix AG</string>
+    <string name="sirrix">Sirrix AG</string>
+    <string name="qr_scanner_instruction_text">Scan the QR-Code shown on the computer to start pairing automatically.</string>
+    <string name="assistent_title_text">Panbox Setup Assistent</string>
+    <string name="pairing_hint1_text">Please input the Pairing-Code shown on the computer.</string>
+    <string name="pairing_hint2_text">If you have a Paring File, click on "Browse File" button instead and choose the File from the memory card.</string>
+    <string name="nfc_label">NFC</string>
+    <string name="panbox_about_text">Copyright © 2014-2015 by Fraunhofer SIT and Sirrix AG\n\
+	    \n\
+	    The license aggrement of Panbox has been published on the official Panbox website.\n\
+	    \n\
+	    Version 1.0.0</string>
+    <string name="pb_already_in_root_text">"You are already in root of this share"</string>
+    <string name="pb_identity_visualization_notice">Make sure this Identity is the same as on the receiver side</string>
+    <string name="pb_nfc_receive_notice">Make sure this Contact is the same as on the sender side</string>
+    <string name="pb_nfc_start_msg">Starting NFC for %1$d seconds</string>
+    <string name="pb_nfc_stop_msg">Stopping NFC now due to timeout</string>
+    <string name="pb_activate_btn">Activate</string>
+    <string name="pb_deactivate_btn">Deactivate</string>
+    <string name="pb_contact_import_successToast">Contact successfully imported</string>
+    <string name="pb_no_share_chosen_text">"No share has been chosen. Please go back to shares view and choose a share"</string>
+    <string name="pb_obtain_credentials">This device is not enabled for this share</string>
+    <string name="pb_please_wait">Please wait a moment!</string>
+    <string name="pb_loading">"Loading"</string>
+    <string name="pb_share">"Share"</string>
+    <string name="pb_shares_for">"Shares for"</string>
+    <string name="pb_path">"Path"</string>
+    <string name="pb_for">"for"</string>
+    <string name="pb_root_directory">"root directory"</string>
+    <string name="pb_to_parent_directory">"to parent directory"</string>
+
+    <!-- Error messages begin -->
+
+    <string name="pb_could_not_find_file_on_disk">"Could not find this file on disk"</string>
+    <string name="pb_could_not_decrypt">"An error occurred during Decryption"</string>
+    <string name="pb_could_not_deobfuscate">"An error occurred during Deobfuscation"</string>
+    <string name="pb_could_not_read_file">"Could not read file"</string>
+    <string name="pb_could_not_import_all_contacts">"Could not import all contacts to addressbook. Possibly because they already existed"</string>
+    <string name="pb_contact_exists">"One or more contacts already exist"</string>
+    <string name="pb_not_a_pairing_file">"The chosen file is not a pairing file"</string>
+    <string name="pb_failed_auth">"Failed to authenticate"</string>
+    <string name="pb_user_not_authenticated_text">"You are not authenticated. Please go to Settings and login in your Dropbox account in order to access your shares"</string>
+    <string name="pb_not_share_onwer_text">"You are not an owner of this share"</string>
+    <string name="pb_file_corrupted">"Either this file is corrupted, or not PKCS#12 conform, or password is wrong"</string>
+    <string name="pb_password_required">"It's not gonna work without the password!"</string>
+    <string name="pb_pin_and_filename_required">"You should type both file name and PIN!"</string>
+    <string name="pb_no_data_passed">"No data was passed!"</string>
+    <string name="pb_file_not_chosen">"No file was chosen!"</string>
+    <string name="pb_contact_existsToast">Contact already exists</string>
+    <string name="pb_pairing_error_occurred">An error while pairing occurred. Please try again.</string>
+
+    <!-- Error messages end -->
+
+    <string name="pb_user">User</string>
+    <string name="pb_contacts_successfully_imported">"Contacts are successfully imported"</string>
+    <string name="pb_refresh_content">"Refresh list"</string>
+    <string name="pb_name">"Name:"</string>
+    <string name="pb_email">"Email:"</string>
+    <string name="pb_curr_user">"Current user: "</string>
+    <string name="title_activity_pairing_execution">PairingExecutionActivity</string>
+
+</resources>

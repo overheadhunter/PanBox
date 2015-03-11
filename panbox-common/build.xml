@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="panbox-common" default="dist">
+	<import file="../panbox-linux/build-common.xml" />
+
+	<target name="compile" depends="init">
+		<javac includeantruntime="false" target="1.7" srcdir="${src}"
+			destdir="${build}">
+			<classpath refid="${ant.project.name}.classpath" />
+		</javac>
+	</target>
+
+	<target name="resources">
+		<copy todir="${build}/org/panbox/desktop/common/gui" flatten="true">
+			<resources>
+				<fileset dir="src/org/panbox/desktop/common/gui">
+					<include name="*.properties" />
+					<include name="panbox-icon-big.png" />
+					<include name="panbox_splashscreen.png" />
+				</fileset>
+			</resources>
+		</copy>
+		<copy todir="${build}/org/panbox/desktop/common/gui/addressbook"
+			flatten="true">
+			<resources>
+				<file file="src/org/panbox/desktop/common/gui/addressbook/contact.png" />
+				<file
+					file="src/org/panbox/desktop/common/gui/addressbook/contact-gross.png" />
+				<file
+					file="src/org/panbox/desktop/common/gui/addressbook/contact-mini.png" />
+				<file file="src/org/panbox/desktop/common/gui/addressbook/contact-my.png" />
+			</resources>
+		</copy>
+		<copy todir="${build}/org/panbox/desktop/common/gui/devices"
+			flatten="true">
+			<resources>
+				<file file="src/org/panbox/desktop/common/gui/devices/device.png" />
+				<file file="src/org/panbox/desktop/common/gui/devices/device-gross.png" />
+				<file file="src/org/panbox/desktop/common/gui/devices/device-mini.png" />
+				<file file="src/org/panbox/desktop/common/gui/devices/device-mobile.png" />
+				<file
+					file="src/org/panbox/desktop/common/gui/devices/device-mobile-gross.png" />
+				<file
+					file="src/org/panbox/desktop/common/gui/devices/device-mobile-mini.png" />
+			</resources>
+		</copy>
+		<copy todir="${build}/org/panbox/desktop/common/gui/settings"
+			flatten="true">
+			<resources>
+				<file file="src/org/panbox/desktop/common/gui/settings/cn.gif" />
+				<file file="src/org/panbox/desktop/common/gui/settings/de.gif" />
+				<file file="src/org/panbox/desktop/common/gui/settings/us.gif" />
+				<file file="src/org/panbox/desktop/common/gui/settings/world.gif" />
+			</resources>
+		</copy>
+		<copy todir="${build}/org/panbox/desktop/common/gui/shares"
+			flatten="true">
+			<resources>
+				<file file="src/org/panbox/desktop/common/gui/shares/dropbox-gray.png" />
+				<file file="src/org/panbox/desktop/common/gui/shares/folder.png" />
+			</resources>
+		</copy>
+		<copy todir="${build}/org/panbox/desktop/common/pairing/cam"
+			flatten="true">
+			<resources>
+				<file file="src/org/panbox/desktop/common/pairing/cam/nocam.png" />
+			</resources>
+		</copy>
+		<copy todir="${build}/org/panbox/desktop/common/gui" flatten="true">
+			<resources>
+				<file file="src/org/panbox/desktop/common/gui/addbutton.png" />
+				<file file="src/org/panbox/desktop/common/gui/panbox-icon-big.png" />
+				<file file="src/org/panbox/desktop/common/gui/publishbutton.png" />
+				<file file="src/org/panbox/desktop/common/gui/removebutton.png" />
+				<file file="src/org/panbox/desktop/common/gui/restorebutton.png" />
+				<file file="src/org/panbox/desktop/common/gui/savebutton.png" />
+			</resources>
+		</copy>
+	</target>
+
+	<target name="dist" depends="compile, resources" description="generate the distribution">
+		<jar jarfile="${dist}/${ant.project.name}.jar" basedir="${build}">
+		</jar>
+		<copy todir="${dist}/${lib}">
+			<fileset dir="${lib}">
+				<include name="*.jar" />
+				<exclude name="*javadoc.jar" />
+				<exclude name="*sources.jar" />
+			</fileset>
+		</copy>
+	</target>
+</project>

@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "Setup.wixproj", "{BC1EB4B3-0F45-4362-9CAB-5F391B4A2FA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC1EB4B3-0F45-4362-9CAB-5F391B4A2FA9}.Debug|x86.ActiveCfg = Debug|x86
+		{BC1EB4B3-0F45-4362-9CAB-5F391B4A2FA9}.Debug|x86.Build.0 = Debug|x86
+		{BC1EB4B3-0F45-4362-9CAB-5F391B4A2FA9}.Release|x86.ActiveCfg = Release|x86
+		{BC1EB4B3-0F45-4362-9CAB-5F391B4A2FA9}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

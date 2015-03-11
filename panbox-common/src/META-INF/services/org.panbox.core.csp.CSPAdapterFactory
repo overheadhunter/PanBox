@@ -1,0 +1,2 @@
+org.panbox.desktop.common.vfs.backend.dropbox.DropboxAdapterFactory
+org.panbox.desktop.common.vfs.backend.generic.GenericAdapterFactory

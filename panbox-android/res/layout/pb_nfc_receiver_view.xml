@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/pb_nfc_receive_noticeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="10dip"
+        android:text="@string/pb_nfc_receive_notice"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"/>
+
+     <RelativeLayout
+        android:id="@+id/tableContainer"
+        android:layout_width="match_parent"
+   	 	android:layout_height="wrap_content"
+   	 	android:padding="5dp"
+   	 	android:background="@drawable/rounded_corners_drawable_bg">
+	    
+	    <TableLayout
+	        android:id="@+id/pb_nfc_receive_info_table"
+	   	 	android:layout_width="wrap_content"
+	   	 	android:layout_height="wrap_content"
+	   	 	android:layout_marginTop="3dip">
+		</TableLayout>
+	</RelativeLayout>
+	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <im.delight.android.identicons.SymmetricIdenticon
+            android:id="@+id/pb_nfcReceiverHashViewSig"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_margin="5dp" 
+            android:padding="5dip"
+            android:background="@drawable/rounded_corners_drawable_bg"/>
+
+        <im.delight.android.identicons.SymmetricIdenticon
+            android:id="@+id/pb_nfcReceiverHashViewEnc"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_margin="5dp" 
+            android:padding="5dip"
+            android:background="@drawable/rounded_corners_drawable_bg"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="?android:attr/buttonBarStyle" 
+        android:layout_marginTop="10dip"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/pb_nfc_receiver_okBtn"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/save_btn_text"
+            style="?android:attr/buttonBarButtonStyle"
+            android:minWidth="100dip"/>
+
+        <Button
+            android:id="@+id/pb_nfc_receiver_cancelBtn"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_btn_text"
+            style="?android:attr/buttonBarButtonStyle"
+            android:minWidth="100dip" 
+            />
+
+    </LinearLayout>
+    
+</LinearLayout>

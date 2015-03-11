@@ -1,0 +1,13 @@
+<resources>
+    <color name="custom_actionbar_bg">#D8D8D8</color>
+    <color name="custom_actionbar_item_highlight_bg">#E6E6E6</color>
+    <color name="custom_actionbar_item_click_bg">#BDBDBD</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="magenta_bg">#6600AA</color>
+    <color name="yellow_bg">#FFCC22</color>
+    <color name="pink_bg">#FF0055</color>
+    <color name="grey">#BBBBBB</color>
+    <color name="grey_text">#666666</color>
+    <color name="grey_light_bg">#EEEEEE</color>
+</resources>

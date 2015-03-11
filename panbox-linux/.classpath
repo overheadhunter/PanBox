@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/panbox-common"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/panbox-core"/>
+	<classpathentry kind="lib" path="lib/fuse-jna-uber.jar"/>
+	<classpathentry kind="lib" path="lib/dbus-2.8.jar"/>
+	<classpathentry kind="lib" path="lib/unix-0.5.jar"/>
+	<classpathentry kind="lib" path="lib/hexdump-0.2.jar"/>
+	<classpathentry kind="lib" path="lib/opencv-linux-x86_64.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

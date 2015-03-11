@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.panbox.mobile.android"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo_panbox"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".gui.activity.StartActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".gui.activity.IdentityManagementDebug"
+            android:launchMode="singleInstance" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".gui.activity.PairingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.dropbox.client2.android.AuthActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <data android:scheme="db-0c4z87ogromgnt5" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".gui.activity.ShareManagerActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="locale"
+            android:launchMode="singleInstance" />
+        <!--  -->
+        <activity
+            android:name=".gui.activity.FileBrowserActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="locale"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".gui.activity.AssistentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gui.activity.CustomActionBarActivity"
+            android:launchMode="singleInstance" >
+        </activity>
+        <activity android:name=".gui.data.CustomActionBar" />
+        <activity android:name=".gui.activity.DirectoryExplorerActivity" />
+        <activity
+            android:name=".gui.activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gui.activity.SettingsActivity"
+            android:configChanges="locale"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".utils.NoGUIActivity" />
+        <activity
+            android:name=".gui.activity.NFCReceiverLayoutTestActivity"
+            android:configChanges="locale"
+            android:screenOrientation="portrait" />
+
+        <!-- Activities from the library project -->
+
+
+        <!-- Services from the panbox-android project -->
+
+        <service
+            android:name=".identitymgmt.AccountService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/account_authenticator" />
+        </service>
+        <service
+            android:name=".identitymgmt.ContactsSyncAdapterService"
+            android:exported="true"
+            android:process=":contacts" >
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_contacts" />
+            <meta-data
+                android:name="android.provider.CONTACTS_STRUCTURE"
+                android:resource="@xml/contacts" />
+        </service>
+
+        <activity
+            android:name=".gui.activity.IdentityVisualizerActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name=".gui.activity.NFCActivity" >
+        </activity>
+        <activity
+            android:name=".gui.activity.NFCReceiverActivity"
+            android:enabled="false"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="application/org.panbox.identity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="org.panbox.mobile.android.gui.activity.PairingExecutionActivity"
+            android:label="@string/title_activity_pairing_execution" >
+        </activity>
+    </application>
+
+</manifest>

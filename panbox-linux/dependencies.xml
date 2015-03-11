@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="dependencies" default="depend.panbox-linux">
+
+	<property file="../panbox-linux/build.properties"/>
+
+	<path id="lib.classpath">
+		<fileset dir="lib" includes="*.jar"/>
+	</path>
+
+	<path id="build_test.classpath">
+		<pathelement location="${build}"/>
+		<pathelement location="${buildtest}"/>
+	</path>
+
+	<path id="JUnit_4.classpath">
+		<pathelement location="../panbox-linux/lib/junit4.jar"/>
+		<pathelement location="../panbox-linux/lib/org.hamcrest.core.jar"/>
+	</path>
+
+	<path id="panbox-core.classpath">
+		<path refid="lib.classpath"/>
+		<path refid="build_test.classpath"/>
+		<path refid="JUnit_4.classpath"/>
+	</path>
+
+	<path id="panbox-common.classpath">
+		<path refid="lib.classpath"/>
+		<fileset dir="../panbox-core/dist/" includes="**/*.jar"/>
+	</path>
+
+	<path id="panbox-linux.classpath">
+		<path refid="lib.classpath"/>
+		<path refid="build_test.classpath"/>
+		<path refid="JUnit_4.classpath"/>
+		<fileset dir="../panbox-core/dist/" includes="**/*.jar"/>
+		<fileset dir="../panbox-common/dist/" includes="**/*.jar"/>
+	</path>
+
+	<path id="panbox-win.classpath">
+		<path refid="lib.classpath"/>
+		<path refid="build_test.classpath"/>
+		<path refid="JUnit_4.classpath"/>
+		<fileset dir="../panbox-core/dist/" includes="**/*.jar"/>
+		<fileset dir="../panbox-common/dist/" includes="**/*.jar"/>
+	</path>
+
+	<target name="depend.panbox-core">
+		<ant dir="../panbox-core" inheritall="false"/>
+	</target>
+
+	<target name="depend.panbox-common" depends="depend.panbox-core">
+		<ant dir="../panbox-common" inheritAll="false"/>
+	</target>
+
+	<target name="depend.panbox-linux" depends="depend.panbox-core, depend.panbox-common">
+		<ant dir="." inheritAll="false"/>
+	</target>
+
+</project>

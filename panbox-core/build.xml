@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="panbox-core" default="dist">
+	<import file="../panbox-linux/build-common.xml"/>
+
+	<target name="compile" depends="init">
+		<javac target="1.7" srcdir="${src}" destdir="${build}">
+			<classpath refid="${ant.project.name}.classpath"/>
+		</javac>
+		<javac target="1.7" srcdir="${test}" destdir="${buildtest}">
+			<classpath refid="${ant.project.name}.classpath"/>
+		</javac>
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<jar destfile="${dist}/${ant.project.name}.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Built-By" value="SIT"/>
+			</manifest>
+		</jar>
+		<copy todir="${dist}/${lib}">
+			<fileset dir="${lib}">
+				<include name="*.jar" />
+				<exclude name="*javadoc.jar" />
+				<exclude name="*sources.jar" />
+				<exclude name="*junit*.jar" />
+				<exclude name="*hamcrest*.jar" />
+			</fileset>
+		</copy>
+	</target>
+</project>

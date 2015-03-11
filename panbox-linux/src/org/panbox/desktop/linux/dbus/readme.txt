@@ -1,0 +1,1 @@
+Siehe https://trac-ext.sit.fraunhofer.de/Panbox/wiki/LinuxIntegration#D-Bus für Anleitung.

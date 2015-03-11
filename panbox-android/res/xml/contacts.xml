@@ -1,0 +1,23 @@
+<ContactsSource xmlns:android="http://schemas.android.com/apk/res/android">
+
+<ContactsDataKind  
+  android:mimeType="vnd.android.cursor.item/panbox-cpi"
+  android:summaryColumn="data3"
+  android:detailColumn="data3"
+  android:detailSocialSummary="true" />
+
+<ContactsDataKind  
+  android:mimeType="vnd.android.cursor.item/panbox-sign-cert"
+  android:summaryColumn="data2"
+  android:detailColumn="data2" />
+  
+<ContactsDataKind  
+  android:mimeType="vnd.android.cursor.item/panbox-enc-cert"
+  android:summaryColumn="data2"
+  android:detailColumn="data2" />
+
+</ContactsSource>
+
+<!-- android:detailSocialSummary="true" /> -->
+
+<!-- android:icon="@drawable/icon" -->

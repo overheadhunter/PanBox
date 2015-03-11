@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/about_activity_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+            
+    <TextView
+		android:id="@+id/about_text"
+   		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:paddingTop="20dip"
+		android:paddingLeft="10dip"
+		android:paddingRight="10dip"
+		android:paddingBottom="10dip"
+		android:gravity="center_horizontal"
+		android:layout_centerHorizontal="true"
+		android:text="@string/panbox_about_text"
+		android:layout_alignParentTop="true"/>
+    
+    <FrameLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_above="@+id/pb_about_logos_container"
+	    android:layout_below="@id/about_text" >
+	    <ImageView
+	        android:id="@+id/aboutImgLogo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:src="@drawable/logo_panbox_splashscreen"
+	        android:layout_margin="10dip"
+	        android:padding="10dip"
+	        android:contentDescription="@string/logo_desc"
+	        />
+    </FrameLayout>
+    
+    
+    <LinearLayout
+	        android:id="@+id/pb_about_logos_container"
+	        android:orientation="horizontal"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="0dip"
+			android:layout_margin="10dip"
+			android:baselineAligned="false"
+			android:layout_alignParentBottom="true">
+					
+        			    <ImageView
+					        android:id="@+id/sitImg"
+					        android:layout_height="wrap_content"
+							android:layout_width="0dip"
+	        				android:layout_weight=".5"
+					        android:src="@drawable/logo_sit"
+					        android:contentDescription="@string/logo_desc"
+					        android:tag="https://www.sit.fraunhofer.de/"
+					        android:clickable="true"
+					        android:onClick="openBrowser"
+					        android:padding="0dip"
+					        android:layout_marginRight="5dip"
+					        android:adjustViewBounds="true"
+					        />
+		        	
+	        	        <ImageView
+					        android:id="@+id/sirrixImg"
+							android:layout_height="wrap_content"
+					        android:layout_width="0dip"
+	        				android:layout_weight=".5"
+					        android:src="@drawable/logo_sirrix"
+					        android:contentDescription="@string/logo_desc"
+					        android:tag="https://www.sirrix.de"
+					        android:clickable="true"
+					        android:onClick="openBrowser"
+					        android:padding="0dip"
+					        android:layout_marginLeft="5dip"
+					        android:adjustViewBounds="true"
+					        />
+	</LinearLayout>
+    
+    
+     
+     
+</RelativeLayout>

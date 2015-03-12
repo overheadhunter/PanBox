@@ -30,12 +30,16 @@ import org.apache.log4j.Logger;
 import org.panbox.core.pairing.PAKCorePairingHandler.PairingType;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.nio.channels.SocketChannel;
 import java.util.Collections;
-import java.util.List;
+import java.util.Enumeration;
 import java.util.Locale;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -115,21 +119,91 @@ public class Settings {
 		clipboardHandlerSupported = Boolean.valueOf(prefs.get(
 				"clipboardHandlerSupported", "true"));
 
-		// Set pairing network interface and address (by default to localhost
-		// since it is available on every device)
-		String pairingAddressStr = prefs.get("pairingAddress", "127.0.0.1");
-
-		try {
-			pairingAddress = InetAddress.getByName(pairingAddressStr);
-			pairingInterface = determineInterfaceForInetAddress(pairingAddress);
-		} catch (UnknownHostException e) {
-			logger.warn("Unable to get interfaces! (UnknownHostException)");
-		}
+		String pairingAddressStr = prefs.get("pairingAddress", "127.0.0.1");		
+		
+		if(pairingAddressStr.equals("127.0.0.1"))
+			setPairingAddressAndInterface();
 
 		// Set pairingType at default to SLAVE. We will set it to master when
 		// pairing has been finished and was MASTER.
 		pairingType = PairingType.valueOf(prefs.get("pairingType",
 				PairingType.SLAVE.toString()));
+	}
+
+	/**
+	 * Determines best network connection for pairing
+	 * 
+	 * Source:
+	 * http://stackoverflow.com/questions/8462498/how-to-determine-internet-network-interface-in-java
+	 */
+	private void setPairingAddressAndInterface() {
+		// iterate over the network interfaces known to java
+		Enumeration<NetworkInterface> interfaces;
+		try {
+			interfaces = NetworkInterface.getNetworkInterfaces();
+		} catch (SocketException e) {
+			logger.warn("Could not get list of host interfaces. Pairing might not work!");
+			return;
+		}
+		OUTER: for (NetworkInterface interface_ : Collections.list(interfaces)) {
+			// we shouldn't care about loopback addresses
+			try {
+				if (interface_.isLoopback())
+					continue;
+			} catch (SocketException e) {
+				logger.warn("Problems determining if loopback device. Will ignore it.");
+				continue;
+			}
+
+			// if you don't expect the interface to be up you can skip this
+			// though it would question the usability of the rest of the code
+			try {
+				if (!interface_.isUp())
+					continue;
+			} catch (SocketException e) {
+				logger.warn("Problems determining if device is up. Will ignore it.");
+				continue;
+			}
+
+			// iterate over the addresses associated with the interface
+			Enumeration<InetAddress> addresses = interface_.getInetAddresses();
+			for (InetAddress address : Collections.list(addresses)) {
+				// look only for ipv4 addresses
+				if (address instanceof Inet6Address)
+					continue;
+
+				// use a timeout big enough for your needs
+				try {
+					if (!address.isReachable(3000))
+						continue;
+				} catch (IOException e) {
+					logger.warn("Problems determining if loopback device. Will ignore it.");
+					continue;
+				}
+
+				// java 7's try-with-resources statement, so that
+				// we close the socket immediately after use
+				try (SocketChannel socket = SocketChannel.open()) {
+					// again, use a big enough timeout
+					socket.socket().setSoTimeout(3000);
+
+					// bind the socket to your local interface
+					socket.bind(new InetSocketAddress(address, 8080));
+
+					// try to connect to *somewhere*
+					socket.connect(new InetSocketAddress("panbox.org", 80));
+				} catch (IOException ex) {
+					ex.printStackTrace();
+					continue;
+				}
+
+				pairingInterface = interface_;
+				pairingAddress = address;
+
+				// stops at the first *working* solution
+				break OUTER;
+			}
+		}
 	}
 
 	private Settings() {
@@ -297,7 +371,6 @@ public class Settings {
 
 	public void setPairingAddress(InetAddress pairingAddress) {
 		this.pairingAddress = pairingAddress;
-		this.pairingInterface = determineInterfaceForInetAddress(pairingAddress);
 		prefs.put("pairingAddress", pairingAddress.getHostAddress());
 	}
 
@@ -307,23 +380,6 @@ public class Settings {
 		} catch (BackingStoreException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private NetworkInterface determineInterfaceForInetAddress(InetAddress addr) {
-		try {
-			List<NetworkInterface> nics = Collections.list(NetworkInterface
-					.getNetworkInterfaces());
-			for (NetworkInterface nic : nics) {
-				for (InetAddress a : Collections.list(nic.getInetAddresses())) {
-					if (a.equals(addr)) {
-						return nic;
-					}
-				}
-			}
-		} catch (SocketException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	public PairingType getPairingType() {

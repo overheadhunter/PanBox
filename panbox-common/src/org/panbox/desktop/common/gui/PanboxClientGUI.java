@@ -3398,7 +3398,7 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 			for (NetworkInterface nic : nics) {
 				List<InetAddress> addrs = Collections.list(nic
 						.getInetAddresses());
-				if (addrs.size() > 0) {
+				if (addrs.size() > 0 && !nic.isLoopback()) {
 					model.addElement(nic);
 				}
 			}

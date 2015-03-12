@@ -121,8 +121,17 @@ public class Settings {
 
 		String pairingAddressStr = prefs.get("pairingAddress", "127.0.0.1");		
 		
-		if(pairingAddressStr.equals("127.0.0.1"))
+		if(pairingAddressStr.equals("127.0.0.1")) {
 			setPairingAddressAndInterface();
+		} else {
+			try {
+				pairingAddress = InetAddress.getByName(pairingAddressStr);
+				pairingInterface = NetworkInterface.getByInetAddress(pairingAddress);
+			} catch (UnknownHostException | SocketException e) {
+				logger.warn("Old network configuration has changed. Will reconfigure it now!");
+				setPairingAddressAndInterface();
+			}
+		}
 
 		// Set pairingType at default to SLAVE. We will set it to master when
 		// pairing has been finished and was MASTER.
@@ -134,7 +143,8 @@ public class Settings {
 	 * Determines best network connection for pairing
 	 * 
 	 * Source:
-	 * http://stackoverflow.com/questions/8462498/how-to-determine-internet-network-interface-in-java
+	 * http://stackoverflow.com/questions/8462498/how-to-determine-internet
+	 * -network-interface-in-java
 	 */
 	private void setPairingAddressAndInterface() {
 		// iterate over the network interfaces known to java

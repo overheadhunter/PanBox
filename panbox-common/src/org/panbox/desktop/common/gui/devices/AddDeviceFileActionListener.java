@@ -65,18 +65,10 @@ public class AddDeviceFileActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JFileChooser chooser = new JFileChooser();
-		int retVal = chooser.showSaveDialog(clientGuiFrame);
-		if (retVal == JFileChooser.APPROVE_OPTION) {
-			File file = null;
-			if (chooser.getSelectedFile().getAbsolutePath().endsWith(".zip")) {
-				file = chooser.getSelectedFile();
-			} else {
-				file = new File(chooser.getSelectedFile() + ".zip");
-			}
 
-			final JTextField deviceNameField = new JTextField(
-					bundle.getString("PanboxClient.chooseDeviceName"));
+		final JTextField deviceNameField = new JTextField(
+				bundle.getString("PanboxClient.chooseDeviceName"));
+		while (true) {
 			deviceNameField.addFocusListener(new FocusAdapter() {
 				@Override
 				public void focusGained(FocusEvent e) {
@@ -86,16 +78,30 @@ public class AddDeviceFileActionListener implements ActionListener {
 					}
 				}
 			});
-			retVal = JOptionPane.showConfirmDialog(clientGuiFrame,
+			int retVal = JOptionPane.showConfirmDialog(clientGuiFrame,
 					deviceNameField,
 					bundle.getString("PanboxClient.enterDeviceName"),
 					JOptionPane.OK_CANCEL_OPTION);
-			if (retVal != JOptionPane.OK_OPTION
-					|| deviceNameField.getText().trim().isEmpty()
-					|| deviceNameField
-							.getText()
-							.equals("Please choose a device name for the new device...")) {
+			if (retVal != JOptionPane.OK_OPTION) {
 				return;
+			} else if (deviceNameField.getText().trim().isEmpty()
+					|| deviceNameField.getText().equals(
+							bundle.getString("PanboxClient.chooseDeviceName"))) {
+				continue;
+			} else {
+				break;
+			}
+		}
+
+		JFileChooser chooser = new JFileChooser();
+		chooser.setSelectedFile(new File(deviceNameField.getText().trim().replace(' ', '_') + ".zip"));
+		int retVal = chooser.showSaveDialog(clientGuiFrame);
+		if (retVal == JFileChooser.APPROVE_OPTION) {
+			File file = null;
+			if (chooser.getSelectedFile().getAbsolutePath().endsWith(".zip")) {
+				file = chooser.getSelectedFile();
+			} else {
+				file = new File(chooser.getSelectedFile() + ".zip");
 			}
 
 			JComboBox<DeviceType> devType = new JComboBox<>(new DeviceType[] {

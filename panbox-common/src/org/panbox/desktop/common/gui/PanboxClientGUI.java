@@ -151,6 +151,34 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 		this.deviceModel = client.getDeviceList();
 
 		initComponents();
+
+		ActionListener changesDetectedActionListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setSettingsChangesDetected();
+			}
+		};
+
+		DocumentListener changesDetectedDocumentListener = new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				setSettingsChangesDetected();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				setSettingsChangesDetected();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+
+			}
+		};
+
+		dropboxSettingsPanel = new DropboxSettingsPanel(
+				changesDetectedActionListener, changesDetectedDocumentListener);
+		
 		initSettingsConfig();
 
 		// set the icon
@@ -162,7 +190,7 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 		// set the default locale for popup messages
 		JOptionPane.setDefaultLocale(Settings.getInstance().getLocale());
 
-		// TODO: Hide these for now. Do we still need this?
+		// Hide these for now. Do we still need this?
 		syncStatusLabel.setVisible(false);
 		syncStatusTextField.setVisible(false);
 
@@ -403,42 +431,16 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 		// expert mode visible/invisible
 		expertModeCheckBoxActionPerformed(null);
 
-		ActionListener changesDetectedActionListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setSettingsChangesDetected();
-			}
-		};
-
 		languageComboBox.addActionListener(changesDetectedActionListener);
 		expertModeCheckBox.addActionListener(changesDetectedActionListener);
 		networkAddressComboBox.addActionListener(changesDetectedActionListener);
 		networkInterfaceComboBox
 				.addActionListener(changesDetectedActionListener);
 
-		DocumentListener changesDetectedDocumentListener = new DocumentListener() {
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				setSettingsChangesDetected();
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				setSettingsChangesDetected();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-
-			}
-		};
-
 		panboxFolderTextField.getDocument().addDocumentListener(
 				changesDetectedDocumentListener);
 		settingsFolderTextField.getDocument().addDocumentListener(
 				changesDetectedDocumentListener);
-		dropboxSettingsPanel = new DropboxSettingsPanel(
-				changesDetectedActionListener, changesDetectedDocumentListener);
 
 		// disable settings apply and discard buttons
 		settingsApplyButton.setEnabled(false);
@@ -3369,8 +3371,11 @@ public class PanboxClientGUI extends javax.swing.JFrame {
 			clipboardHandlerCheckbox.setSelected(false);
 		}
 		mailtoSchemeCheckbox.setSelected(s.isMailtoSchemeSupported());
-		selectedCSPContentPanel.removeAll();
-		cspSelectionComboBox.setSelectedIndex(-1);
+		if(cspSelectionComboBox.getModel().getSize() > 0) {
+			// in case dropbox has been found select it by default
+			selectedCSPContentPanel.removeAll();
+			selectedCSPContentPanel.add(dropboxSettingsPanel);
+		}
 
 		NetworkInterface nic;
 		try {

@@ -314,7 +314,7 @@ public abstract class PanboxClient {
 		}
 
 		renderSplashFrame(SplashScreenState.CHECK_ALREADY_RUNNING);
-				
+
 		// init context menu early, otherwise it may not be available for setup
 		// dialogs
 		initGlobalContextMenu();
@@ -329,7 +329,6 @@ public abstract class PanboxClient {
 					JOptionPane.ERROR_MESSAGE);
 			System.exit(DesktopApi.EXIT_INVALID_KEY_LENGTH);
 		}
-
 
 		if (OS.getOperatingSystem().isLinux()) {
 			try {
@@ -862,8 +861,11 @@ public abstract class PanboxClient {
 					true);
 			dialog.setAccessToken(Settings.getInstance()
 					.getDropboxAccessToken());
-			dialog.setDropboxSyncDirPath(Settings.getInstance()
-					.getDropboxSynchronizationDir());
+			if (!Settings.getInstance().getDropboxSynchronizationDir()
+					.equals("")) {
+				dialog.setDropboxSyncDirPath(Settings.getInstance()
+						.getDropboxSynchronizationDir());
+			}
 			dialog.setVisible(true);
 
 			if (dialog.getAccessToken() != null
@@ -1966,7 +1968,7 @@ public abstract class PanboxClient {
 			int ksize = Cipher
 					.getMaxAllowedKeyLength(KeyConstants.SYMMETRIC_ALGORITHM);
 			logger.info("Maximum supported key size: " + ksize);
-			if (ksize < KeyConstants.SYMMETRIC_KEY_SIZE) {	
+			if (ksize < KeyConstants.SYMMETRIC_KEY_SIZE) {
 				return false;
 			}
 		} catch (NoSuchAlgorithmException e) {

@@ -699,7 +699,7 @@ public class AddShareDialog extends javax.swing.JDialog {
 						JOptionPane
 								.showMessageDialog(
 										this,
-										bundle.getString("AddShareDialog.ContainsIncompatibleFiles"));
+										bundle.getString("AddShareDialog.ShareFolderNotEmpty"));
 					} else if (!ShareManagerImpl.getInstance()
 							.sharePathAvailable(path)) {
 						JOptionPane
@@ -727,7 +727,7 @@ public class AddShareDialog extends javax.swing.JDialog {
 					JOptionPane
 							.showMessageDialog(
 									this,
-									bundle.getString("AddShareDialog.ContainsIncompatibleFiles"));
+									bundle.getString("AddShareDialog.ShareFolderNotEmpty"));
 				} else if (path.equals("")) {
 					JOptionPane
 							.showMessageDialog(

@@ -1,7 +1,7 @@
 @echo off
 echo Building new Panbox release...
 
-cd ..\panbox-core
+cd panbox-core
 call ant
 if %errorlevel% neq 0 (
    exit /b %errorlevel%

@@ -497,7 +497,7 @@ public class CryptCore {
 			throws NoSuchAlgorithmException, NoSuchProviderException,
 			FileNotFoundException, IOException {
 		byte[] ref = genChecksum(f);
-		return Arrays.equals(ref, tocheck);
+		return MessageDigest.isEqual(ref, tocheck);
 	}
 
 	public static char[] deriveKeystorePass(char[] userpass, byte[] salt)
